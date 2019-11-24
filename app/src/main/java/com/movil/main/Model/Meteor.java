@@ -11,8 +11,8 @@ import java.util.Random;
 public class Meteor {
 
     public float INIT_Y;
-    public static final int SPRITE_SIZE_WIDTH =300;
-    public static final int SPRITE_SIZE_HEIGTH=300;
+    public static final int SPRITE_SIZE_WIDTH =200;
+    public static final int SPRITE_SIZE_HEIGTH=200;
 
     private final int MIN_SPEED = 1;
     private final int MAX_SPEED = 20;
@@ -30,7 +30,7 @@ public class Meteor {
 
 
     public Meteor(Context context, float ScreenWidth, float ScreenHeight){
-        speed = 20;
+        speed = 5;
         Random random = new Random();
         isMoving = false;
 

@@ -3,13 +3,14 @@ package com.movil.main.Model;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.movil.main.R;
 
 public class SpaceShip {
 
-    public static final float INIT_X =100;
-    public static final float INIT_Y =100;
+    public static final float INIT_X =50;
+    public static final float INIT_Y =50;
     public static final int SPRITE_SIZE_WIDTH =300;
     public static final int SPRITE_SIZE_HEIGTH=200;
     public static final float GRAVITY_FORCE=10;
@@ -26,8 +27,15 @@ public class SpaceShip {
     private Bitmap spriteSpaceShip;
     private boolean isMoving;
 
-    private int live = 100;
+    public int live = 100;
 
+    public int getLive() {
+        return live;
+    }
+
+    public void setLive(int live) {
+        this.live = live;
+    }
 
     public SpaceShip(Context context, float ScreenWidth, float ScreenHeight){
         speed = 1;
@@ -110,9 +118,9 @@ public class SpaceShip {
     public void move(){
 
         if(isMoving){
-                speed+= 5;
+            speed+= 5;
         }else{
-                speed-= 5;
+            speed-= 5;
         }
 
         if (speed > MAX_SPEED) {
@@ -131,5 +139,31 @@ public class SpaceShip {
             positionY = maxY;
         }
 
+    }
+
+    public boolean intersectsWithObject(Object  obj) {
+        if(obj instanceof  Meteor){ obj=(Meteor) obj;
+         if ((this.positionY> ((Meteor)obj).getPositionY())) {
+            if ((this.positionY <= ((Meteor)obj).getPositionY() + EnemySpaceShip.SPRITE_SIZE_HEIGTH)) {
+                if(this.positionX+SPRITE_SIZE_WIDTH/2 >= ((Meteor)obj).getPositionX()) {
+                    Log.i("Interseccion", "¡Choco!");
+                    return true;
+                }
+            }
+            return false;
+            }
+        }else if(obj instanceof  EnemySpaceShip){
+            if ((this.positionY> ((EnemySpaceShip)obj).getPositionY())) {
+                if ((this.positionY <= ((EnemySpaceShip)obj).getPositionY() + EnemySpaceShip.SPRITE_SIZE_HEIGTH)) {
+                    if(this.positionX+SPRITE_SIZE_WIDTH/2>= ((EnemySpaceShip)obj).getPositionX()) {
+                        Log.i("Interseccion", "¡Choco!");
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        return false;
     }
 }
