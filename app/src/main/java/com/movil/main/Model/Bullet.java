@@ -114,8 +114,9 @@ public class Bullet {
     }
 
     public boolean intersectsWithMeteor(Meteor meteor){
-        if(this.y)
+      //  if(this.y)
         if(this.positionX == meteor.getPositionX())return true;
+        return false;
     }
 
 
